@@ -10,7 +10,7 @@ const DashBoardLayout = () => {
       <Tabs
         screenOptions={{
           headerShown: false,
-          tabBarActiveTintColor: "#007AFF",
+          tabBarActiveTintColor: "#42e6f5",
           tabBarInactiveTintColor: "#8E8E93",
           tabBarStyle: {
             backgroundColor: "#FFFFFF",
@@ -24,7 +24,7 @@ const DashBoardLayout = () => {
           options={{
             title: "Home",
             tabBarIcon: (data) => (
-              <AntDesign name="home" size={24} color="black" />
+              <AntDesign name="home" size={data.size} color={data.color} />
             ),
           }}
         />
@@ -33,7 +33,7 @@ const DashBoardLayout = () => {
           options={{
             title: "Profile",
             tabBarIcon: (data) => (
-              <AntDesign name="profile" size={24} color="black" />
+              <AntDesign name="profile" size={data.size} color={data.color} />
             ),
           }}
         />
@@ -42,7 +42,7 @@ const DashBoardLayout = () => {
           options={{
             title: "Settings",
             tabBarIcon: (data) => (
-              <AntDesign name="setting" size={24} color="black" />
+              <AntDesign name="setting" size={data.size} color={data.color} />
             ),
           }}
         />
@@ -51,7 +51,7 @@ const DashBoardLayout = () => {
           options={{
             title: "Tasks",
             tabBarIcon: (data) => (
-              <FontAwesome5 name="tasks" size={24} color="black" />
+              <FontAwesome5 name="tasks" ssize={data.size} color={data.color} />
             ),
           }}
         />
