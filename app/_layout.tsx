@@ -1,11 +1,11 @@
-import { View, Text } from 'react-native'
-import React from 'react'
-import { Slot, Stack } from 'expo-router'
-import "./../global.css"
+import { View, Text } from "react-native";
+import React from "react";
+import { Slot, Stack } from "expo-router";
+import "./../global.css";
 
 //rfne
 const RootLayout = () => {
-  return <Slot />
-}
+  return <Slot />;
+};
 
-export default RootLayout
+export default RootLayout;
