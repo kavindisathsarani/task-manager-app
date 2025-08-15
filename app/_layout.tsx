@@ -5,7 +5,9 @@ import "./../global.css";
 
 //rfne
 const RootLayout = () => {
-  return <Slot />;
+  return <Slot />
+     
+
 };
 
 export default RootLayout;
