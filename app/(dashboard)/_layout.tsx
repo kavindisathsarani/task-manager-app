@@ -1,22 +1,39 @@
+import { useAuth } from "@/context/AuthContext";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
-import { Tabs } from "expo-router";
-import React from "react";
-import { SafeAreaView } from "react-native";
+import { Tabs, useRouter } from "expo-router";
+import React, { useEffect } from "react";
+import { ActivityIndicator, SafeAreaView } from "react-native";
 
 const DashBoardLayout = () => {
+  const { user, loading } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!loading && !user) {
+      router.push("/login");
+    }
+  }, [user, loading]);
+  if (loading) {
+    return (
+      <view className="flex-1 justify-center items-center">
+        <ActivityIndicator size="large" />
+      </view>
+    );
+  }
+
   return (
     <SafeAreaView className="flex-1 bg-white">
       <Tabs
         screenOptions={{
           headerShown: false,
-          tabBarActiveTintColor: "#42e6f5",
+          tabBarActiveTintColor: "#007AFF",
           tabBarInactiveTintColor: "#8E8E93",
           tabBarStyle: {
             backgroundColor: "#FFFFFF",
             borderTopWidth: 0,
             elevation: 0,
-          }
+          },
         }}
       >
         <Tabs.Screen
@@ -24,7 +41,7 @@ const DashBoardLayout = () => {
           options={{
             title: "Home",
             tabBarIcon: (data) => (
-              <AntDesign name="home" size={data.size} color={data.color} />
+              <AntDesign name="home" size={24} color="black" />
             ),
           }}
         />
@@ -33,7 +50,7 @@ const DashBoardLayout = () => {
           options={{
             title: "Profile",
             tabBarIcon: (data) => (
-              <AntDesign name="profile" size={data.size} color={data.color} />
+              <AntDesign name="profile" size={24} color="black" />
             ),
           }}
         />
@@ -42,7 +59,7 @@ const DashBoardLayout = () => {
           options={{
             title: "Settings",
             tabBarIcon: (data) => (
-              <AntDesign name="setting" size={data.size} color={data.color} />
+              <AntDesign name="setting" size={24} color="black" />
             ),
           }}
         />
@@ -51,7 +68,7 @@ const DashBoardLayout = () => {
           options={{
             title: "Tasks",
             tabBarIcon: (data) => (
-              <FontAwesome5 name="tasks" ssize={data.size} color={data.color} />
+              <FontAwesome5 name="tasks" size={24} color="black" />
             ),
           }}
         />
