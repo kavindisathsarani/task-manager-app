@@ -28,7 +28,7 @@ const TaskScreen = () => {
   return (
     <View className="flex-1 w-full justify-center align-items-center">
       <Text className="text-center text-4xl">TaskScreen</Text>
-      <view className="absolute bottom-4 right-4">
+      <View className="absolute bottom-4 right-4">
       <Pressable
         className="bg-blue-500 p-4 rounded-lg mt-4"
         onPress={() => {
@@ -37,7 +37,7 @@ const TaskScreen = () => {
       >
         <MaterialIcons name="add" size={24} color="white" />
       </Pressable>
-      </view>
+      </View>
     </View>
   );
 };
