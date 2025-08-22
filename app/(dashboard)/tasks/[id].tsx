@@ -1,7 +1,8 @@
 import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useLocalSearchParams, useRouter } from 'expo-router'
-import { createTask } from '@/services/taskService'
+import { createTask, getTaskById } from '@/services/taskService'
+import { useLoader } from '@/context/LoaderContext'
 
 const TaskFormScreen = () => {
     const {id} = useLocalSearchParams<{ id?: string}>()
@@ -10,25 +11,58 @@ const TaskFormScreen = () => {
     const [title, setTitle] = useState<string>("")
     const [description, setDescription] = useState<string>("")
     const router = useRouter()
+    const { showLoader, hideLoader } = useLoader()
+    
 
-    const handleSubmit = async() => {
-        // Handle form submission
-        // validations
-        if(!title.trim){
-            Alert.alert("Validation", "Title is required")
-            return
+   useEffect(() => {
+  const load = async () => {
+    if (!isNew && id) {
+      showLoader();
+      try {
+        const task = await getTaskById(id);
+        if (task) {
+          setTitle(task.title);
+          setDescription(task.description);
         }
-
-        try {
-            if(isNew) {
-            await createTask({title, description})
-            }
-            router.back()
-        }catch(error) {
-            console.error("Error saving task:", error)
-            Alert.alert("Error", "Failed to save task")
-        }
+      } catch (err) {
+        console.error("Error loading task:", err);
+        Alert.alert("Error", "Failed to load task");
+      } finally {
+        hideLoader();
+      }
     }
+  };
+
+  load();
+}, [id, isNew]);
+
+// ...existing code...
+
+const handleSubmit = async () => {
+  if (!title.trim()) {
+    Alert.alert("Validation", "Title is required");
+    return;
+  }
+  showLoader();
+  try {
+    if (isNew) {
+      await createTask({ title, description });
+      Alert.alert("Success", "Task created!");
+    } else if (id) {
+      // You may want to implement updateTask in your service
+      // await updateTask(id, { title, description });
+      Alert.alert("Success", "Task updated!");
+    }
+    router.back();
+  } catch (err) {
+    Alert.alert("Error", "Failed to save task");
+    console.error(err);
+  } finally {
+    hideLoader();
+  }
+};
+
+// ...existing code...
 
  return (
     <View className="p-4">
