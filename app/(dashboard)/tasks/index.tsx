@@ -1,6 +1,10 @@
-import { View, Text } from "react-native";
+import { View, Text, Pressable } from "react-native";
 import React, { useEffect } from "react";
 import { getAllTasks } from "@/services/taskService";
+import { MaterialIcons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
+
+
 
 const TaskScreen = () => {
 
@@ -19,9 +23,17 @@ const TaskScreen = () => {
     handleFetchData();
   }, []);
 
+  const router = useRouter();
+
   return (
     <View className="flex-1 w-full justify-center align-items-center">
       <Text className="text-center text-4xl">TaskScreen</Text>
+      <Pressable
+        className="bg-blue-500 p-4 rounded-lg mt-4"
+        onPress={() => router.push("/(dashboard)/tasks/new")}
+      >
+        <MaterialIcons name="add" size={24} color="white" />
+      </Pressable>
     </View>
   );
 };
